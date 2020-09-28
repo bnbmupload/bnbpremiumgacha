@@ -39,7 +39,7 @@ function gacha(end)
 {
 	<!-- 아이템변수만듬 -->
 	var item = [];
-	for (var i = 0; i <= 200; ++i) {
+	for (var i = 1; i <= 200; ++i) {
 	  item[i] = 0;
 	}
 	  
@@ -114,6 +114,24 @@ function gacha(end)
 				maxhammer = hammer;
 			hammer = 0;
 			i++;			
+		}
+		<!-- 아이템 개수 세기 -->
+		var count = 0;
+		for (var ii = 1; ii <= 187; ++ii) {
+			  if (item[ii] == 0)
+				count++;
+		}
+		<!-- 10% 미만으로 보유한다면 -->
+		if (count <= 19)
+		{
+			<!-- 아이템 분해수순 -->
+			for (var ii = 187; ii <= 0; --ii) {
+			  if (item[ii] >= 1)
+			  {
+				item[ii] = 0;
+				break
+				}
+			}
 		}
 	}
 	return [totalhammer, minhammer, maxhammer];
