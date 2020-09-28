@@ -1,0 +1,130 @@
+<body>
+<div id ="zone1">
+뽑기 체험하기
+<input type="button" onclick="onetime()" value="클릭">
+<div id ="zone1_sub1" style="border:2px solid black"></div>
+</div>
+<div id ="zone1">
+뽑기 평균확률 구하기
+<input type="number" id="quantity" name="quantity" value="1000">
+<input type="button" onclick="avgtime()" value="클릭">
+<div id ="zone2_sub1" style="border:2px solid black"></div>
+</div>
+</body>
+<script>
+function onetime()
+{
+	var hammer = gacha(1);
+	var money = numberWithCommas(Math.ceil(hammer[0] / 11)*18000);
+	var totalhammer = numberWithCommas(hammer[0]);
+	document.getElementById("zone1_sub1").innerHTML = "슈퍼후우 뽑기 결과 망치 총 " + totalhammer + "개를 사용하셨고 " + money + "원 쓰셨네요...";
+}
+function avgtime()
+{
+	var qntt = document.getElementById("quantity").value;
+	var hammer = gacha(qntt);
+	hammer[0] = Math.ceil(hammer[0]/qntt);
+	
+	var minmoney = numberWithCommas(Math.ceil(hammer[1] / 11)*18000);
+	var maxmoney = numberWithCommas(Math.ceil(hammer[2] / 11)*18000);
+	var minhammer = numberWithCommas(hammer[1]);
+	var maxhammer = numberWithCommas(hammer[2]);	
+	var money = numberWithCommas(Math.ceil(hammer[0] / 11)*18000);
+	var totalhammer = numberWithCommas(hammer[0]);
+	
+	document.getElementById("zone2_sub1").innerHTML = "슈퍼후우 뽑기 결과 평균적으로 망치 총 " + totalhammer + "개를 사용하셨고 " + money + "원 쓰셨네요...<BR>최소값은 망치 " + minhammer + "개, " + minmoney + "원을 사용하셨고 <br>최대값은 망치 " + maxhammer + "개, " + maxmoney + "원을 사용하셨어요";
+}
+
+function gacha(end)
+{
+	<!-- 아이템변수만듬 -->
+	var item = [];
+	for (var i = 0; i <= 200; ++i) {
+	  item[i] = 0;
+	}
+	  
+	<!-- 뽑기시작 -->
+
+	<!-- 확률분포 -->
+	<!-- 24/180 = 샵 확률 -->
+	<!-- 155/180 = 잡템 확률 -->
+	<!-- 1/180 = 고급아이템 확률 -->
+	var hammer = 0, totalhammer = 0, minhammer = 0, maxhammer = 0;
+	var i = 0;
+	while (i < end) {
+		<!-- 샵당첨 -->
+		<!-- 샵 최대 개수 고려 크아는 3만개까지 샵 보유 가능-->
+		<!-- 24/180 -->
+		var chance = getRandomInt(1,180);
+		if (chance <= 24)
+		{
+			<!-- 총 8종 -->
+			var chance2 = getRandomInt(1,8);
+			if  (item[chance2] >= 30000)
+				continue;
+			else
+			{
+				if (chance2 ==1 || chance2 == 5)
+					item[chance2] += 30;
+				else if (chance2 == 2 || chance2 == 6)
+					item[chance2] += 40;
+				else if (chance2 == 4 || chance2 == 8)
+					item[chance2] += 50;
+				else if (chance2 == 3 || chance2 == 7)
+					item[chance2] += 60;
+			}
+		}	
+		<!-- 0.541% 치장아이템 당첨 -->
+		<!-- 155/180, 155+24=179 -->
+		else if (chance <= 179)
+		{
+			<!-- 총 159종 -->
+			var chance2 = getRandomInt(1,159) + 8;
+			if  (item[chance2] == 1)
+				continue;
+			else
+				item[chance2] = 1;
+		}
+		<!-- 0.029% 치장아이템 또는 후우 보석 당첨 -->
+		<!-- 1/180, 1+179 -->
+		else if (chance <= 180)
+		{
+			<!-- 총 20종 -->
+			var chance2 = getRandomInt(1,20)+167;
+			if  (item[chance2] == 1)
+				continue;
+			else
+				item[chance2] = 1;
+		}
+		hammer++;
+		if (item[187]&& item[186])
+		{
+			for (var ii = 0; ii <= 2000; ++ii) {
+			  item[ii] = 0;
+			}
+			totalhammer += hammer;
+			if (minhammer == 0)
+			{
+				minhammer = hammer;
+				maxhammer = hammer;
+			}
+			else if (hammer < minhammer)
+				minhammer = hammer;
+			else if (hammer > maxhammer)
+				maxhammer = hammer;
+			hammer = 0;
+			i++;			
+		}
+	}
+	return [totalhammer, minhammer, maxhammer];
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+</script>
