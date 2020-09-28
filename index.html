@@ -125,14 +125,16 @@ function gacha(end)
 		if (count <= 19)
 		{
 			<!-- 아이템 분해수순 -->
-			for (var ii = 185; ii <= 0; --ii) {
-				alert(ii);
+			ii =185;
+			while (ii > 0)
+			{
 				if (item[ii] >= 1)
 				{
 					item[ii] = 0;
-					alert("분해");
-					break
+					ii=0;
 				}
+				else
+					ii-=1;
 			}
 		}
 			
