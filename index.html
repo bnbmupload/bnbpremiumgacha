@@ -1,4 +1,6 @@
 <body>
+<label><input type="checkbox" id="base" value="base"> 잡템채우기</label>
+<label><input type="checkbox" id="1get" value="1get"> 보석1개 보유</label>
 <div id ="zone1">
 뽑기 체험하기
 <input type="button" onclick="onetime()" value="클릭">
@@ -12,6 +14,13 @@
 </div>
 </body>
 <script>
+<!-- 아이템변수만듬 -->
+var item = [];
+<!-- 아이템 최대 개수 -->
+var itemcount = 187;
+var itemmin = Math.ceil(itemcount/10);
+
+
 function onetime()
 {
 	var hammer = gacha(1);
@@ -35,16 +44,44 @@ function avgtime()
 	document.getElementById("zone2_sub1").innerHTML = "슈퍼후우 뽑기 결과 평균적으로 망치 총 " + totalhammer + "개를 사용하셨고 " + money + "원 쓰셨네요...<BR>최소값은 망치 " + minhammer + "개, " + minmoney + "원을 사용하셨고 <br>최대값은 망치 " + maxhammer + "개, " + maxmoney + "원을 사용하셨어요";
 }
 
+function itemreset(base,have)
+{
+	if (base)
+	{
+		for (var i = 1; i <= itemcount-itemmin; ++i) {
+		  item[i] = 1;
+		}
+		for (i = itemcount-itemmin+1; i <= itemcount; ++i) {
+		  item[i] = 0;
+		}
+	}
+	else
+	{
+		for (i = 1; i <= itemcount; ++i) {
+		  item[i] = 0;
+		}
+	}
+	if (have)
+		item[itemcount] = 1;
+}
+
 function gacha(end)
 {
-	<!-- 아이템변수만듬 -->
-	var item = [];
-	for (var i = 1; i <= 200; ++i) {
-	  item[i] = 0;
-	}
+	var basecheck = document.getElementById("base");
+	if (basecheck.checked == true)
+		basecheck = 1;
+	else
+		basecheck = 0;
+	
+	var havecheck = document.getElementById("1get");	
+	if (havecheck.checked == true)
+		havecheck = 1;
+	else
+		havecheck = 0;	
+	itemreset(basecheck,havecheck);
+	
 	  
 	<!-- 뽑기시작 -->
-
 	<!-- 확률분포 -->
 	<!-- 24/180 = 샵 확률 -->
 	<!-- 155/180 = 잡템 확률 -->
@@ -99,9 +136,7 @@ function gacha(end)
 		hammer++;
 		if (item[187]&& item[186])
 		{
-			for (var ii = 0; ii <= 2000; ++ii) {
-			  item[ii] = 0;
-			}
+			itemreset(basecheck,havecheck);
 			totalhammer += hammer;
 			if (minhammer == 0)
 			{
@@ -117,15 +152,15 @@ function gacha(end)
 		}
 		<!-- 미보유 아이템 개수 세기 -->
 		var count = 0;
-		for (var ii = 1; ii <= 187; ++ii) {
+		for (var ii = 1; ii <= itemcount; ++ii) {
 			  if (item[ii] == 0)
 				count++;
 		}
 		<!-- 10% 미만으로 보유한다면 -->
-		if (count <= 19)
+		if (count <= itemmin)
 		{
 			<!-- 아이템 분해수순 -->
-			ii =185;
+			ii =itemcount - 2;
 			while (ii > 0)
 			{
 				if (item[ii] >= 1)
