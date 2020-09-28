@@ -115,7 +115,7 @@ function gacha(end)
 			hammer = 0;
 			i++;			
 		}
-		<!-- 아이템 개수 세기 -->
+		<!-- 미보유 아이템 개수 세기 -->
 		var count = 0;
 		for (var ii = 1; ii <= 187; ++ii) {
 			  if (item[ii] == 0)
@@ -125,14 +125,17 @@ function gacha(end)
 		if (count <= 19)
 		{
 			<!-- 아이템 분해수순 -->
-			for (var ii = 187; ii <= 0; --ii) {
-			  if (item[ii] >= 1)
-			  {
-				item[ii] = 0;
-				break
+			for (var ii = 185; ii <= 0; --ii) {
+				alert(ii);
+				if (item[ii] >= 1)
+				{
+					item[ii] = 0;
+					alert("분해");
+					break
 				}
 			}
 		}
+			
 	}
 	return [totalhammer, minhammer, maxhammer];
 }
