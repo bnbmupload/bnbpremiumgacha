@@ -1,13 +1,13 @@
 <body>
 <div id ="zone1">
-»Ì±â Ã¼ÇèÇÏ±â
-<input type="button" onclick="onetime()" value="Å¬¸¯">
+ë½‘ê¸° ì²´í—˜í•˜ê¸°
+<input type="button" onclick="onetime()" value="í´ë¦­">
 <div id ="zone1_sub1" style="border:2px solid black"></div>
 </div>
 <div id ="zone1">
-»Ì±â Æò±ÕÈ®·ü ±¸ÇÏ±â
+ë½‘ê¸° í‰ê· í™•ë¥  êµ¬í•˜ê¸°
 <input type="number" id="quantity" name="quantity" value="1000">
-<input type="button" onclick="avgtime()" value="Å¬¸¯">
+<input type="button" onclick="avgtime()" value="í´ë¦­">
 <div id ="zone2_sub1" style="border:2px solid black"></div>
 </div>
 </body>
@@ -17,7 +17,7 @@ function onetime()
 	var hammer = gacha(1);
 	var money = numberWithCommas(Math.ceil(hammer[0] / 11)*18000);
 	var totalhammer = numberWithCommas(hammer[0]);
-	document.getElementById("zone1_sub1").innerHTML = "½´ÆÛÈÄ¿ì »Ì±â °á°ú ¸ÁÄ¡ ÃÑ " + totalhammer + "°³¸¦ »ç¿ëÇÏ¼Ì°í " + money + "¿ø ¾²¼Ì³×¿ä...";
+	document.getElementById("zone1_sub1").innerHTML = "ìŠˆí¼í›„ìš° ë½‘ê¸° ê²°ê³¼ ë§ì¹˜ ì´ " + totalhammer + "ê°œë¥¼ ì‚¬ìš©í•˜ì…¨ê³  " + money + "ì› ì“°ì…¨ë„¤ìš”...";
 }
 function avgtime()
 {
@@ -32,33 +32,33 @@ function avgtime()
 	var money = numberWithCommas(Math.ceil(hammer[0] / 11)*18000);
 	var totalhammer = numberWithCommas(hammer[0]);
 	
-	document.getElementById("zone2_sub1").innerHTML = "½´ÆÛÈÄ¿ì »Ì±â °á°ú Æò±ÕÀûÀ¸·Î ¸ÁÄ¡ ÃÑ " + totalhammer + "°³¸¦ »ç¿ëÇÏ¼Ì°í " + money + "¿ø ¾²¼Ì³×¿ä...<BR>ÃÖ¼Ò°ªÀº ¸ÁÄ¡ " + minhammer + "°³, " + minmoney + "¿øÀ» »ç¿ëÇÏ¼Ì°í <br>ÃÖ´ë°ªÀº ¸ÁÄ¡ " + maxhammer + "°³, " + maxmoney + "¿øÀ» »ç¿ëÇÏ¼Ì¾î¿ä";
+	document.getElementById("zone2_sub1").innerHTML = "ìŠˆí¼í›„ìš° ë½‘ê¸° ê²°ê³¼ í‰ê· ì ìœ¼ë¡œ ë§ì¹˜ ì´ " + totalhammer + "ê°œë¥¼ ì‚¬ìš©í•˜ì…¨ê³  " + money + "ì› ì“°ì…¨ë„¤ìš”...<BR>ìµœì†Œê°’ì€ ë§ì¹˜ " + minhammer + "ê°œ, " + minmoney + "ì›ì„ ì‚¬ìš©í•˜ì…¨ê³  <br>ìµœëŒ€ê°’ì€ ë§ì¹˜ " + maxhammer + "ê°œ, " + maxmoney + "ì›ì„ ì‚¬ìš©í•˜ì…¨ì–´ìš”";
 }
 
 function gacha(end)
 {
-	<!-- ¾ÆÀÌÅÛº¯¼ö¸¸µë -->
+	<!-- ì•„ì´í…œë³€ìˆ˜ë§Œë“¬ -->
 	var item = [];
 	for (var i = 0; i <= 200; ++i) {
 	  item[i] = 0;
 	}
 	  
-	<!-- »Ì±â½ÃÀÛ -->
+	<!-- ë½‘ê¸°ì‹œì‘ -->
 
-	<!-- È®·üºĞÆ÷ -->
-	<!-- 24/180 = ¼¥ È®·ü -->
-	<!-- 155/180 = ÀâÅÛ È®·ü -->
-	<!-- 1/180 = °í±Ş¾ÆÀÌÅÛ È®·ü -->
+	<!-- í™•ë¥ ë¶„í¬ -->
+	<!-- 24/180 = ìƒµ í™•ë¥  -->
+	<!-- 155/180 = ì¡í…œ í™•ë¥  -->
+	<!-- 1/180 = ê³ ê¸‰ì•„ì´í…œ í™•ë¥  -->
 	var hammer = 0, totalhammer = 0, minhammer = 0, maxhammer = 0;
 	var i = 0;
 	while (i < end) {
-		<!-- ¼¥´çÃ· -->
-		<!-- ¼¥ ÃÖ´ë °³¼ö °í·Á Å©¾Æ´Â 3¸¸°³±îÁö ¼¥ º¸À¯ °¡´É-->
+		<!-- ìƒµë‹¹ì²¨ -->
+		<!-- ìƒµ ìµœëŒ€ ê°œìˆ˜ ê³ ë ¤ í¬ì•„ëŠ” 3ë§Œê°œê¹Œì§€ ìƒµ ë³´ìœ  ê°€ëŠ¥-->
 		<!-- 24/180 -->
 		var chance = getRandomInt(1,180);
 		if (chance <= 24)
 		{
-			<!-- ÃÑ 8Á¾ -->
+			<!-- ì´ 8ì¢… -->
 			var chance2 = getRandomInt(1,8);
 			if  (item[chance2] >= 30000)
 				continue;
@@ -74,22 +74,22 @@ function gacha(end)
 					item[chance2] += 60;
 			}
 		}	
-		<!-- 0.541% Ä¡Àå¾ÆÀÌÅÛ ´çÃ· -->
+		<!-- 0.541% ì¹˜ì¥ì•„ì´í…œ ë‹¹ì²¨ -->
 		<!-- 155/180, 155+24=179 -->
 		else if (chance <= 179)
 		{
-			<!-- ÃÑ 159Á¾ -->
+			<!-- ì´ 159ì¢… -->
 			var chance2 = getRandomInt(1,159) + 8;
 			if  (item[chance2] == 1)
 				continue;
 			else
 				item[chance2] = 1;
 		}
-		<!-- 0.029% Ä¡Àå¾ÆÀÌÅÛ ¶Ç´Â ÈÄ¿ì º¸¼® ´çÃ· -->
+		<!-- 0.029% ì¹˜ì¥ì•„ì´í…œ ë˜ëŠ” í›„ìš° ë³´ì„ ë‹¹ì²¨ -->
 		<!-- 1/180, 1+179 -->
 		else if (chance <= 180)
 		{
-			<!-- ÃÑ 20Á¾ -->
+			<!-- ì´ 20ì¢… -->
 			var chance2 = getRandomInt(1,20)+167;
 			if  (item[chance2] == 1)
 				continue;
